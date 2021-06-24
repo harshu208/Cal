@@ -1,0 +1,498 @@
+<html>
+    <head>      
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+        <link href="Kendo-License/src/styles/web/kendo.common.css" rel="stylesheet" />
+        <link href="Kendo-License/src/styles/web/kendo.default.css" rel="stylesheet" />
+        <link href="Kendo-License/src/styles/web/kendo.default.mobile.css" rel="stylesheet" />
+        <link href="Kendo-License/src/styles/mobile/kendo.mobile.all.css" rel="stylesheet" /> 
+        <script src="Kendo-License/src/js/jquery.js"></script>
+        <script src="Kendo-License/src/js/kendo.all.js"></script>
+        <script src="common.js"></script>
+        <link href="common.css" rel="stylesheet" />
+      <style>
+        .bg-light {
+    background-color: #521307!important;
+}
+.cmnLink{
+  color: white !important;
+  text-transform:  capitalize !important;
+  border: 1px solid darkred !important;
+  margin-left: 5px !important;
+}
+ .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
+}
+      </style>
+      </head>
+    <body  onload="Load()">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <span style="color: white;font-family: auto;text-shadow: 2px 0px cyan;font-size: 25px;">
+         &nbsp;   <!-- W -->
+          </span>
+
+     
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"> 
+            <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i> </span>
+
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a  class="nav-link cmnLink" href="/Cement Calculation/CementConcreteCalculator.html">Cement Concrete <span class="sr-only">(current)</span></a>
+            </li>    
+            <li class="nav-item">
+              <a  class="nav-link cmnLink" href="/Cement Calculation/PlasteringCalculator.html">Plastering <span class="sr-only"></span></a>
+            </li>        
+          </ul>         -->
+        </div>
+      </nav>
+
+        <script>
+          function FormReset(){
+            document.getElementById("myForm").reset();
+          }
+       function Load() {
+        Calculate();
+}
+         
+            var area = 0;
+            var WetVolumeofMixValue = 0;
+            var meter_cube_feet_cube = 0;
+            var unit =0;
+            var DryVolumeOfMortar = 0;
+            var GradeRatio = 0;
+            var CementinKgValue = 0;
+            var SandinTonValue = 0;
+            var GradeRatioVolume = 0;
+            var sandKG = 0;
+            var multiplyValue = 0;
+            var sandinCFT = 0;
+            var CementBags = 0;
+            function Calculate(){
+          
+              
+                unit = document.getElementById("unit").value;    
+                
+                if(INCHCMValidationBrik(unit) == true){
+                var conversition = 0;
+                if(unit == "1"){
+                  conversition = 12;
+                  SetLabelName("Feet","Inch"); 
+                              
+                }
+                if(unit == "2"){
+                  conversition = 100;
+                  SetLabelName("Meter","CM");
+                
+                }
+                CementConcreteVolume(conversition);
+                VolumeOfMortar(unit);
+                GetGradeRatio();
+              //  WetVolumeofMix(unit);
+                AmountofCementRequired();
+                AmountofSandRequired();               
+                Chart();
+              }
+            }
+            function VolumeOfMortar(){
+             
+  // PlasterArea × Plaster Thickness In Meter
+debugger
+        if(unit == "1"){
+        multiplyValue = meter_cube_feet_cube;              
+            
+        }
+        if(unit == "2"){
+          multiplyValue = area;
+        }
+
+  var PlasterThickness  = document.getElementById("ratio").value
+  var VolumeOfMortar = multiplyValue*parseFloat(PlasterThickness);
+  VolumeOfMortar =  VolumeOfMortar+(VolumeOfMortar*0.30);
+  DryVolumeOfMortar = VolumeOfMortar+(VolumeOfMortar*0.25);
+
+}
+            function GetGradeRatio()
+            {
+                GradeRatioVolume = document.getElementById("GradeRatio").value;
+                var sel = document.getElementById("GradeRatio");
+                var text= sel.options[sel.selectedIndex].text;
+                var res = text.split("-");
+                GradeRatio = res[1].split(":");
+            }
+function UnitChange(){
+  Calculate();
+}
+
+function PlasterTypeChange(){
+  Calculate();
+}
+
+function GradeofFootingChange(){
+  Calculate();
+}
+function CementConcreteVolume(conversition)
+{
+                //(length*width*depth)
+              
+                var length = document.getElementById("length").value;
+                var length2 = document.getElementById("length2").value;
+                var width = document.getElementById("width").value
+                var width2 = document.getElementById("width2").value;
+              
+                length = length == ""?0:length;
+                width = width == ""?0:width;
+
+                length = parseFloat(length);
+                width = parseFloat(width);
+                
+                length2 = parseFloat(length2);
+                width2 = parseFloat(width2);
+               
+                if(length == NaN || width == NaN ){
+                 alert("parsing failed");
+                 return;
+                  }
+                  else{
+                    if(isNaN(length2)){
+                      length2 =0; 
+                    }
+                    else{
+                      length2 = length2/conversition;
+                    }
+                    if(isNaN(width2)){
+ 
+                      width2 = 0;
+                    }
+                    else{
+                      width2 = width2/conversition;
+                    }    
+                    
+                    area = ((length+length2)*(width+width2));  
+                    var unit = document.getElementById("unit").value;
+                    if(unit == "1"){
+                      meter_cube_feet_cube = (area / 10.764);
+                      document.getElementById("totalFeetCube").textContent=area.toFixed(2)+" sft";
+                    document.getElementById("totalMeterCube").textContent=meter_cube_feet_cube.toFixed(2) +" sqm"; 
+                    }if(unit == "2"){
+                      meter_cube_feet_cube = (area * 10.764);
+                      document.getElementById("totalFeetCube").textContent = meter_cube_feet_cube.toFixed(2) +" sft"; 
+                    document.getElementById("totalMeterCube").textContent = area.toFixed(2)+" sqm"; 
+                    }                  
+ }
+}
+
+
+
+
+
+            function AmountofCementRequired(){
+                debugger
+                var GradeRatioSum = document.getElementById("GradeRatio").value;
+                GradeRatioSum = parseFloat(GradeRatioSum);
+                var CementRatioDt = parseFloat(GradeRatio[0]);    
+                DryVolumeOfMortar =    DryVolumeOfMortar.toFixed(2);
+                var MeterCube = (CementRatioDt/GradeRatioSum)*parseFloat(DryVolumeOfMortar);
+                MeterCube = parseFloat(MeterCube);
+                // No. Of Cement Bags
+                var Bags = Math.ceil((MeterCube/0.035));
+                CementBags = Bags;
+                document.getElementById("cementBags").textContent=Bags.toFixed(2)+" Bags";
+                CementinKg(Bags);
+            }
+           function AmountofSandRequired(){
+             debugger
+            var GradeRatioSum = document.getElementById("GradeRatio").value;
+                GradeRatioSum = parseFloat(GradeRatioSum);
+                var CementRatioDt = parseFloat(GradeRatio[1]);
+                DryVolumeOfMortar =  DryVolumeOfMortar;           
+                var MeterCube = (CementRatioDt/GradeRatioSum)*parseFloat(DryVolumeOfMortar);
+                MeterCube = parseFloat(MeterCube);
+                
+                sandinCFT =(MeterCube*35.28);      
+                sandKG = Math.ceil((MeterCube*1550));
+               
+               SandinTon(sandKG);
+           }
+          
+          function CementinKg(Bags){
+            debugger;
+            CementinKgValue =  (Bags*50);           
+          }
+       
+function SendInKG(MeterCube){
+ // Sand in Kg
+
+}
+
+          function SandinTon(SandVolume){
+            debugger
+             SandinTonValue =  (SandVolume/1000);
+             document.getElementById("SandInKG").textContent=SandinTonValue.toFixed(2)+" Tons";
+          }
+
+      
+// function Chart(){
+//         var chart = new CanvasJS.Chart("chartContainer", {
+//         animationEnabled: true,
+//         title: {
+//         text: ""
+//         },
+//         data: [{
+//         type: "pie",
+//         startAngle: 240,
+//         yValueFormatString: "##0.00\" Kg\"",
+//         indexLabel: "{label} {y}",
+//         dataPoints: [
+//         {y: CementinKgValue, label: "Cement"},
+//         {y: sandKG, label: "Sand"},    
+//         ]
+//         }]
+//         });
+//         chart.render();
+// }
+
+function Chart() {
+            $("#KendoGridViewDivision").kendoChart({
+                title: {
+                    position: "bottom",
+                    text: ""
+                },
+                legend: {
+                    visible: false
+                },
+                chartArea: {
+                    background: ""
+                },
+                seriesDefaults: {
+                    labels: {
+                        visible: true,
+                        background: "transparent",
+                        template: "#= category #: \n #= value#"
+                    }
+                },
+                series: [{
+                    type: "pie",
+                    startAngle: 150,
+                    data: [{
+                        category: "Sand (cft) ",
+                        value: Math.round(sandinCFT),
+                        color: "#C2B280"
+                    },{
+                        category: "Cement (Bags)",
+                        value: Math.round(CementBags),
+                        color: "#84735A"
+                    }]
+                }],
+                tooltip: {
+                    visible: true,
+                    format: ""
+                }
+            });
+        }
+
+        $(document).ready(Chart);
+        $(document).bind("kendo:skinChange", Chart);
+
+
+          function WetVolumeofMix(unit){    
+            debugger  
+            if(unit == "1"){
+              WetVolumeofMixValue =  meter_cube_feet_cube+((meter_cube_feet_cube*52.4)/100);
+            }
+
+            if(unit == "2"){
+              WetVolumeofMixValue =  area+((area*52.4)/100);
+            }    
+           
+          }
+          
+          function SetLabelName(label1Value, label2Value){
+            debugger
+            document.getElementById("label1").textContent = label1Value;
+            document.getElementById("label3").textContent = label1Value;
+          
+            document.getElementById("label2").textContent = label2Value;
+            document.getElementById("label4").textContent = label2Value;
+          }
+         
+            </script>
+            <!-- <div class="jumbotron" style="border-radius: 0;padding: 1rem 4rem !important; text-align: center; background: darkred;      color: white;   text-transform: capitalize;">
+                <h5 class="">civil-engineering-calculators!</h5>
+                
+             
+               </div> -->
+              <div class="row" style="margin-top: 15px; margin-left: 5px;margin-right: 5px;">                
+                  <div class="col-lg-4">
+                    <div class="card">
+                      <div style="padding: 10px; background: lavenderblush;">
+                        <h6>Plaster Calculation</h6>
+                     
+                      </div>
+                        <div class="card-body">
+                            <form id="myForm">    
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Unit</label>
+                                    <div class="col-sm-9">
+                                        <select onchange="UnitChange()" class="custom-select" id="unit">
+                                            <option>Please Select</option>
+                                            <option selected value="1">Feet/Inch</option>
+                                            <option value="2">Meter/CM</option>
+                                          </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Plaster Type </label>
+                                    <div class="col-sm-9">
+                                        <select onchange="PlasterTypeChange()"  class="custom-select" id="ratio">  
+                                            <option selected="selected" value="0.012">12 MM</option>
+                                            <option value="0.015">15 MM</option>
+                                            <option value="0.018">18 MM</option>
+                                            <option value="0.020">20 MM</option>
+                                          </select>
+                                    </div>
+                                  </div>
+                              
+
+                                <div class="form-group row">
+                                  <label for="inputPassword3" class="col-sm-3 col-form-label">Length</label>
+                                  <div class="col-sm-5">
+                                    <div class="input-group mb-3">
+                                        <input type="text" id="length" value="10" class="form-control" placeholder="0" aria-label="0" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                          <span class="input-group-text" id="label1"></span>
+                                        </div>
+                                      </div>                                      
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <div class="input-group mb-3">
+                                        <input type="text" id="length2" class="form-control" placeholder="0" aria-label="0" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                          <span class="input-group-text" id="label2"></span>
+                                        </div>
+                                      </div>                                      
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-3 col-form-label">Width   </label>
+                                    <div class="col-sm-5">
+                                      <div class="input-group mb-3">
+                                          <input type="text" id="width"  value="10"  class="form-control" placeholder="0" aria-label="0" aria-describedby="basic-addon2">
+                                          <div class="input-group-append">
+                                            <span class="input-group-text" id="label3"></span>
+                                          </div>
+                                        </div>                                      
+                                    </div>
+                                    <div class="col-sm-4">
+                                      <div class="input-group mb-3">
+                                          <input type="text" id="width2" class="form-control" placeholder="0" aria-label="0" aria-describedby="basic-addon2">
+                                          <div class="input-group-append">
+                                            <span class="input-group-text" id="label4"></span>
+                                          </div>
+                                        </div>                                      
+                                    </div>
+                                  </div>                          
+                           
+                                <div class="form-group row">
+                                  <label for="inputEmail3" class="col-sm-3 col-form-label">Ratio </label>
+                                  <div class="col-sm-9">
+                                      <select onchange="GradeofFootingChange()"  class="custom-select" id="GradeRatio">  
+                                        <option selected="selected" value="4">C.M-1:3</option>
+                                        <option value="5">C.M-1:4</option>
+                                        <option value="6">C.M-1:5</option>
+                                        <option value="7">C.M-1:6</option>
+                                        </select>
+                                  </div>
+                                </div>
+
+                                <div class="form-group row" style="text-align: right;">
+                                  <div class="col-sm-12 pull-right">
+                                    <button style="background-color: darkred  !important;color: white;" type="button" class="btn" onclick="Calculate()">Calculate</button>
+                                    <button type="submit" onclick="FormReset()" class="btn btn-primary pull-right">Reset</button>
+                                  </div>
+                                </div>
+                              </form>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-5">
+                    <div class="card">
+                      <div style="padding: 10px; background: #f1edef;">
+                        <h6>Graphical Representation</h6>                     
+                      </div>
+                        <div class="card-body" style="padding: 0 !important;">
+                          <div id="example">
+                            <div class="demo-section k-content wide">
+                                <div id="KendoGridViewDivision"></div>
+                                <b class="Disclaimer"> Disclaimer:</b><br/>
+                                <div class="Disclaimer">
+                                  Quantity has been calculated using the average values.</br>
+                                  Actual quantity will vary depending upon densities of fine aggregates.
+                                </div>
+                            </div>          
+                            </div> 
+                </div>
+                </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card">
+                      <div style="padding: 10px; background: #f1edef;">
+                        <h6>Total volume of Cement Mortar</h6>
+                      </div>
+                        <div class="card-body" style="padding: 0 !important;">
+                       
+                            
+                         <div style="padding: 10px;">
+                          <div>
+                            <span id="totalMeterCube">
+                               
+                            </span>
+                        </div>
+                        <hr/>
+                        <div>
+                            <span id="totalFeetCube">
+                               
+                            </span>
+                        </div>
+                         </div>
+                           
+                            <table class="table">
+                              <thead style=" background: #f1edef;">
+                                  <tr>
+                                      <td>Material</td>
+                                      <td>Quantity (UOM)</td>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>Cement </td>
+                                      <td><span id="cementBags"></span></td>
+                                  </tr>
+                                  <tr>
+                                      <td>Sand</td>
+                                      <td id="SandInKG"></td>
+                                  </tr>                            
+                              </tbody>
+                          </table>
+                          </div>
+                            </div>
+                            </div>
+
+                    
+
+
+                </div>
+              
+              
+        
+    </body>
+</html>

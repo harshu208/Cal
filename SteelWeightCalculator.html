@@ -1,0 +1,284 @@
+<html>
+    <head>      
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="common.js"></script>
+        <link href="common.css" rel="stylesheet" />
+      <style>
+        .bg-light {
+    background-color: #521307!important;
+}
+.cmnLink{
+  color: white !important;
+  text-transform:  capitalize !important;
+  border: 1px solid darkred !important;
+  margin-left: 5px !important;
+}
+ .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
+}
+      </style>
+      </head>
+    <body  onload="Load()">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <span style="color: white;font-family: auto;text-shadow: 2px 0px cyan;font-size: 25px;">
+         &nbsp;   <!-- W -->
+          </span>
+
+     
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"> 
+            <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i> </span>
+
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a  class="nav-link cmnLink" href="/Cement Calculation/CementConcreteCalculator.html">Cement Concrete <span class="sr-only">(current)</span></a>
+            </li>    
+            <li class="nav-item">
+              <a  class="nav-link cmnLink" href="/Cement Calculation/PlasteringCalculator.html">Plastering <span class="sr-only"></span></a>
+            </li>        
+          </ul>         -->
+        </div>
+      </nav>
+
+        <script>
+          function FormReset(){
+            document.getElementById("myForm").reset();
+          }
+       function Load() {
+        Calculate();
+}
+         
+            var  steelInkg = 0;
+            var WetVolumeofMixValue = 0;
+            var meter_cube_feet_cube = 0;
+            var unit =0;
+            var DryVolumeOfMortar = 0;
+            var GradeRatio = 0;
+            var CementinKgValue = 0;
+            var SandinTonValue = 0;
+            var GradeRatioVolume = 0;
+            var sandKG = 0;
+            var multiplyValue = 0;
+            function Calculate(){
+          
+              
+                unit = document.getElementById("unit").value;     
+                
+                if(INCHCMValidationSteel(unit) == true){
+                var conversition = 0;
+                if(unit == "1"){
+                  conversition = 12;
+                  SetLabelName("Feet","Inch"); 
+                              
+                }
+                if(unit == "2"){
+                  conversition = 100;
+                  SetLabelName("Meter","CM");
+                
+                }
+                CementConcreteVolume(conversition);
+              }    
+            }
+  
+        
+function UnitChange(){
+  Calculate();
+}
+
+function CementConcreteVolume(conversition)
+{
+                //(length*width*depth)
+                var Diameter = document.getElementById("Diameter").value;
+                var length = document.getElementById("length").value;
+                var length2 = document.getElementById("length2").value;
+                var Quantity = document.getElementById("Quantity").value;
+
+                Diameter = Diameter == ""?0:Diameter;
+                length = length == ""?0:length;
+                Quantity = Quantity == ""?0:Quantity;
+
+                Diameter = parseFloat(Diameter);
+                length = parseFloat(length);                           
+                length2 = parseFloat(length2);
+                Quantity = parseFloat(Quantity);
+               
+                if(length == NaN){
+                 alert("parsing failed");
+                 return;
+                  }
+                  else{
+                    if(isNaN(length2)){
+                      length2 =0; 
+                    }
+                    else{
+                      length2 = length2/conversition;
+                    }
+                       
+            
+                    var unit = document.getElementById("unit").value;
+                    if(unit == "1"){
+                      var feetToMeter = ((length+length2)/3.281);
+                      steelInkg = (((Diameter*Diameter)/162.28)*(feetToMeter*Quantity));  
+                      document.getElementById("totalFeetCube").textContent=steelInkg.toFixed(4)+" Kgs";
+                      var steelInTon = (steelInkg/1000);
+                      document.getElementById("totalMeterCube").textContent=steelInTon.toFixed(4) +" Tons"; 
+                    }if(unit == "2"){                     
+                      steelInkg= ((Diameter*Diameter/162.28)*((length)*Quantity));
+                      var steelInTon = (steelInkg/1000);
+                      document.getElementById("totalFeetCube").textContent = steelInTon.toFixed(4) +" Tons"; 
+                      document.getElementById("totalMeterCube").textContent = steelInkg.toFixed(4)+" Kgs"; 
+                    }                  
+ }
+}
+
+
+
+
+
+
+
+      
+
+          function SetLabelName(label1Value, label2Value){
+            debugger
+            document.getElementById("label1").textContent = label1Value;
+          
+            document.getElementById("label2").textContent = label2Value;
+          }
+         
+            </script>
+            <!-- <div class="jumbotron" style="border-radius: 0;padding: 1rem 4rem !important; text-align: center; background: darkred;      color: white;   text-transform: capitalize;">
+                <h5 class="">civil-engineering-calculators!</h5>
+                
+             
+               </div> -->
+              <div class="row" style="margin-top: 15px; margin-left: 10px;margin-right: 10px;">                
+                  <div class="col-lg-5">
+                    <div class="card">
+                      <div style="padding: 10px; background: lavenderblush;">
+                        <h6>Steel Weight Calculation</h6>
+                     
+                      </div>
+                        <div class="card-body">
+                            <form id="myForm">    
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Unit</label>
+                                    <div class="col-sm-8">
+                                        <select onchange="UnitChange()" class="custom-select" id="unit">
+                                            <option>Please Select</option>
+                                            <option selected value="1">Feet/Inch</option>
+                                            <option value="2">Meter/CM</option>
+                                          </select>
+                                    </div>
+                                  </div>
+                   
+
+                                <div class="form-group row">
+                                  <label for="inputPassword3" class="col-sm-4 col-form-label">Diameter </label>
+                                  <div class="col-sm-8">
+                                    <div class="input-group mb-3">
+                                        <input type="text" id="Diameter" value="2" class="form-control" placeholder="0" aria-label="0" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                          <span class="input-group-text" id="labelDiameter">mm</span>
+                                        </div>
+                                      </div>                                      
+                                  </div>                               
+                                </div>
+
+                                <div class="form-group row">
+                                  <label for="inputPassword3" class="col-sm-4 col-form-label">Length   </label>
+                                  <div class="col-sm-4">
+                                    <div class="input-group mb-3">
+                                        <input type="text" id="length" value="15" class="form-control" placeholder="0" aria-label="0" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                          <span class="input-group-text" id="label1"></span>
+                                        </div>
+                                      </div>                                      
+                                  </div>    
+                                  <div class="col-sm-4">
+                                    <div class="input-group mb-3">
+                                        <input type="text" id="length2" class="form-control" placeholder="0" aria-label="0" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                          <span class="input-group-text" id="label2"></span>
+                                        </div>
+                                      </div>                                      
+                                  </div>                           
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-4 col-form-label">Quantity   </label>
+                                    <div class="col-sm-8">
+                                      
+                                          <input type="text" id="Quantity"  value="1"  class="form-control" placeholder="0" aria-label="0" aria-describedby="basic-addon2">
+                                          
+                                        </div>                                      
+                                    </div>                                 
+                                                            
+                           
+                       
+
+                                <div class="form-group row" style="text-align: right;">
+                                  <div class="col-sm-12 pull-right">
+                                    <button style="background-color: darkred  !important;color: white;" type="button" class="btn" onclick="Calculate()">Calculate</button>
+                                    <button type="submit" onclick="FormReset()" class="btn btn-primary pull-right">Reset</button>
+                                  </div>
+                                </div>
+                              </form>
+                        </div>
+                      </div>
+                  </div>
+              
+                <div class="col-lg-4">
+                    <div class="card">
+                      <div style="padding: 10px; background: #f1edef;">
+                        <h6>Weight of steel in kgs/Tons</h6>
+                      </div>
+                        <div class="card-body" style="padding: 0 !important;">
+                       
+                            
+                         <div style="padding: 10px;">
+                          <div>
+                            <span id="totalMeterCube">
+                               
+                            </span>
+                        </div>
+                        <hr/>
+                        <div>
+                            <span id="totalFeetCube">
+                               
+                            </span>
+                        </div>
+                         </div>
+                           
+                           
+                          </div>
+                            </div>
+                            </div>
+<div class="col-lg-3">
+
+  <div class="card">
+    <div style="padding: 10px; background: #f1edef;">
+      <h6 class="Disclaimer">Disclaimer</h6>
+    </div>
+      <div class="card-body Disclaimer" style="padding: 10px !important;">
+              The weights calculated on this steel weight calculator page are for guidance only. They are calculated using average densities for the materials. The exact composition of the material will affect the weight of the actual piece.
+     </div>
+     </div>
+</div>
+                    
+
+
+                </div>
+              
+              
+        
+    </body>
+</html>

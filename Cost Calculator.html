@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<script type="text/javascript" src="E:\WebDevelopement\wonder\c.js"></script>-->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+        body{
+            font-family: "Roboto";
+        }
+        #datatable{
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        .tr-1{
+            border-bottom: 1px solid black;
+            
+        }
+        .tr-2{
+            border-top: 1px solid black;
+        }
+        #total_amount{
+            font-weight: bold;
+        }
+        .ta-heading{
+            font-weight: bold;
+        }
+        .text-center{
+            text-align: center;
+        }
+        .mf{
+            padding: 4px;
+        }
+
+    </style>
+    <title>Cost Calculator</title>
+</head>
+
+<body onload="intialStuff()">
+
+    <h1>Cost Calculator</h1>
+    <table id="builtuparea">
+        <tr>
+            <td>Built UP Area</td>
+            <td><input type="text"></td>
+        </tr>
+    </table>
+    <br>
+    <table id="datatable">
+        <tr class="tr-1">
+            <th class="td-1">Resource</th>
+            <th class="td-1">Unit</th>
+            <th class="td-1">Quantity</th>
+            <th class="td-1 mf" ">M.F.</th>
+            <th class="td-1">Rate</th>
+            <th class="td-1">Amount</th>
+        </tr>
+        <tr>
+            
+            <td>Cement</td>
+            <td>Bag</td>
+            <td class="text-center">0</td>
+            <td>0.45</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+        <tr>
+            <td>Steel</td>
+            <td>KG</td>
+            <td class="text-center">0</td>
+            <td>2.80</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+
+        <tr>
+            <td>Bricks</td>
+            <td>Per Piece</td>
+            <td class="text-center">0</td>
+            <td>20.00</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+        <tr>
+            <td>Aggregate</td>
+            <td >Per Cubic feet</td>
+            <td class="text-center">0</td>
+            <td>1.65</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+
+        <tr>
+            <td>Sand</td>
+            <td>KG</td>
+            <td class="text-center">0</td>
+            <td>2.80</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+        <tr>
+            <td>Flooring</td>
+            <td>Per Sq Feet</td>
+            <td class="text-center">0</td>
+            <td>1.25</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+
+        <tr>
+            <td>Windows</td>
+            <td>Per Sq Feet</td>
+            <td class="text-center">0</td>
+            <td>1.25</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+
+        <tr>
+            <td>Doors</td>
+            <td>Per Sq Feet</td>
+            <td class="text-center">0</td>
+            <td>0.18</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+
+        <tr>
+            <td>Electrical Fitting</td>
+            <td>Per Point</td>
+            <td class="text-center">0</td>
+            <td>0.12</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+
+        <tr>
+            <td>Painting</td>
+            <td>Per Sq Feet</td>
+            <td class="text-center">0</td>
+            <td>6.00</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+        <tr>
+            <td>Sanitary</td>
+            <td>Per Sq Feet</td>
+            <td class="text-center">0</td>
+            <td>1.00</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+
+        <tr>
+            <td>Kitchen work</td>
+            <td>Per Sq Feet</td>
+            <td class="text-center">0</td>
+            <td>0.05</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+        <tr>
+            <td>Fabrication</td>
+            <td>Per Sq Feet</td>
+            <td class="text-center">0</td>
+            <td>1</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+
+        <tr>
+            <td>Antitermite</td>
+            <td>Per Sq Feet</td>
+            <td class="text-center">0</td>
+            <td>1.00</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+
+        <tr>
+            <td>Contractor (RCC, Brick Work)</td>
+            <td>Per Sq Feet</td>
+            <td class="text-center">0</td>
+            <td>1.00</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+        <tr>
+            <td>Architect / Engineer</td>
+            <td>Per Sq Feet</td>
+            <td class="text-center">0</td>
+            <td>1.00</td>
+            <td><input type="number"></td>
+            <td class="text-center">0</td>
+        </tr>
+        <tr class="tr-2">
+            <td class="ta-heading">Total Amount</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="text-center" id="total_amount">0</td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        var tbl2 = document.getElementById("datatable");
+        var tbl1 = document.getElementById("builtuparea");
+
+        var inputQuantity = [];
+        var inputRate = [];
+        var inputArea = tbl1.rows[0].cells[1].getElementsByTagName("input")[0];
+        for (let i = 1; i < tbl2.rows.length-1; i++) {
+            var input1 = tbl2.rows[i].cells[2];
+            var input2 = tbl2.rows[i].cells[4].getElementsByTagName("input")[0];
+            inputQuantity.push(input1);
+            inputRate.push(input2);
+        }
+
+        for (let i = 0; i < tbl2.rows.length - 2; i++) {
+            inputQuantity[i].addEventListener("keyup", function (event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    hello();
+                }
+            });
+            inputRate[i].addEventListener("keyup", function (event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    hello();
+                }
+            });
+        }
+        inputArea.addEventListener("keyup", function (event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                hello1();
+            }
+        });
+
+
+        function hello1() {
+            console.log("124");
+            var builtuparea = tbl1.rows[0].cells[1].getElementsByTagName("input")[0].value;
+            console.log(builtuparea);
+            for (let i = 1; i < tbl2.rows.length-1; i++) {
+                var mf = tbl2.rows[i].cells[3].textContent;
+                (tbl2.rows[i].cells[2].textContent) = mf*builtuparea;
+            hello();
+        }
+    }
+
+        function hello() {
+            console.log("123");
+            console.log(tbl2.rows.length);
+            var sum=0;
+            for (let i = 1; i < tbl2.rows.length-1; i++) {
+                var row = tbl2.rows[i];
+                var quantity = row.cells[2].textContent;
+                var rate = row.cells[4].getElementsByTagName("input")[0].value;
+                (row.cells[5].textContent) = quantity*rate;
+                sum+=quantity*rate;
+            }
+
+            document.getElementById("total_amount").textContent=sum;
+
+
+        }
+
+        function intialStuff() {
+            var tbl2 = document.getElementById("datatable");
+            for (let i = 1; i < tbl2.rows.length; i++) {
+                var row = tbl2.rows[i];
+            }
+        }
+
+    </script>
+</body>
+
+</html>
